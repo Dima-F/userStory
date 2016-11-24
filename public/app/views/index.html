@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <title>User Story</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" >
+    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type = "text/javascript" src="/socket.io/socket.io.js"></script>
+    <!--Services-->
+    <script type="text/javascript" src="app/services/authService.js"></script>
+    <script type="text/javascript" src="app/services/userService.js"></script>
+    <script type="text/javascript" src="app/services/storyService.js"></script>
+    <!--Controllers-->
+    <script type="text/javascript" src="app/controllers/authController.js"></script>
+    <script type="text/javascript" src="app/controllers/userController.js"></script>
+    <script type="text/javascript" src="app/controllers/storyController.js"></script>
+    <!--Directives-->
+    <script type="text/javascript" src="app/directives/reverse.js"></script>
+
+    <script type= "text/javascript" src="app/app.route.js"></script>
+    <script type= "text/javascript" src="app/app.js"></script>
+</head>
+<body  ng-controller="AuthController as auth">
+<header>
+    <div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand"><span class="glyphicon glyphicon-book"></span>User Story</a>
+            </div>
+            <ul class = "nav navbar-nav">
+                <li><a href="/users"></a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li ng-if="!auth.loggedIn"><a href="/login">Login</a> </li>
+                <li ng-if="!auth.loggedIn"><a href="/signup">Signup</a> </li>
+                <li ng-if="auth.loggedIn"><a href="#">Hello {{auth.user.username}}</a> </li>
+                <li ng-if="auth.loggedIn"><a href="#" ng-click="auth.doLogout()">Logout</a> </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+<main class="container">
+    <div ng-view></div>
+</main>
+</body>
+</html>

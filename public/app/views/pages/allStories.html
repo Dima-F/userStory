@@ -1,0 +1,15 @@
+<div class = "row">
+    <div class = "col-md-3">
+
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <div class="panel panel-success">
+                <div class = panel-heading">Your story</div>
+                <div class="panel-body" ng-repeat="s in story.stories | reverse">
+                    <p>{{s.content}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
