@@ -29,13 +29,13 @@ module.exports = function (app, express, io) {
 
     api.post('/signup',function (req, res) {
         var user = new User({
-            name:req.body.name,
+            name:req.body.name,//body parser in action!
             username:req.body.username,
             password:req.body.password
         });
         user.save(function (err) {
             if(err){
-                res.send(err);
+                res.send(err);//todo:why send error to client???
             } else {
                 var token = createToken(user);
                 res.json({
@@ -62,15 +62,15 @@ module.exports = function (app, express, io) {
         User.findOne({username:req.body.username}).select('name username password').exec(function (err, user) {
             if(err) throw err;
             if(!user){
-                res.send({message:'User doesnt exist'});
+                res.json({message:'User doesnt exist'});
             } else {
                 var validPassword = user.comparePassword(req.body.password);
                 if(!validPassword){
-                    res.send({message:'Wrong password!'});
+                    res.json({message:'Wrong password!'});
                 } else {
                     //tokens...
                     var token = createToken(user);
-                    res.send({
+                    res.json({
                         success:true,
                         message:'Successfully login!',
                         token:token
@@ -79,14 +79,15 @@ module.exports = function (app, express, io) {
             }
         });
     });
-    
+
+    //authorize middleware...
     api.use(function (req, res, next) {
         console.log('somebody jast come to your app!');
         var token = req.body.token || req.param('token') || req.headers['x-access-token'];
         if (token) {
             jsonwebtoken.verify(token,secretKey,function (err, decoded) {
                 if(err){
-                    res.send({
+                    res.json({
                         success:false,
                         message:'Failed to authenticate user!'
                     });
@@ -96,7 +97,7 @@ module.exports = function (app, express, io) {
                 }
             })
         } else {
-            res.send({
+            res.json({
                 success:false,
                 message:'Token is not provided!'
             });
