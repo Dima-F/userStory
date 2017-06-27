@@ -5,7 +5,14 @@ angular.module('appRoutes',['ngRoute'])
         .when('/',{
             templateUrl:'app/views/pages/home.html',
             controller:'AuthController',
-            controllerAs:"auth"
+            controllerAs:"auth",
+            resolve:{
+                stories:function (Story) {
+                    Story.all().then(function (data) {
+                        return data;
+                    });
+                }
+            }
         })
         .when('/login',{
             templateUrl:'app/views/pages/login.html'

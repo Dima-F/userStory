@@ -1,0 +1,1 @@
+1.problem with transmitting stories via resolve obj in "/" route

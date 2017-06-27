@@ -11,6 +11,7 @@
 </div>
 
 <div class = "row" ng-if="auth.loggedIn">
+    {{2+2}}
     <div class = "col-md-3">
     </div>
     <div class="col-md-4" ng-controller="StoryController as story">
@@ -25,8 +26,8 @@
                 </div>
             </div>
             <div class="panel panel-success">
-                <div class = panel-heading">Your story</div>
-                <div class="panel-body" ng-repeat="s in story.stories | reverse">
+                <div class = "panel-heading">Your story</div>
+                <div  class="panel-body" ng-repeat="s in stories | reverse">
                     <p>{{s.content}}</p>
                 </div>
             </div>
